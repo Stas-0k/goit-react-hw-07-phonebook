@@ -5,14 +5,14 @@
 
 .listItem_contact{
     display:flex;
-    width: 400px;
+    width: 450px;
     margin-bottom: 5px;
-    justify-content: center;
+    justify-content:space-between;
     align-items: center;
 }
 
 .bttn_contactList {
-    margin-left: auto;
+    
 
     border: none;
         border-radius: 4px;
@@ -42,3 +42,13 @@
     background-color:coral;
         color:black;
 }
+
+p {
+    margin: 0;
+}
+
+.name{
+    font-weight: 600;
+}
+
+

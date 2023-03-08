@@ -1,17 +1,17 @@
 import css from './contact-form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/contactsSlice';
 import { getContacts } from '../../redux/selectors';
+import {addContact} from '../../redux/operations'
 
 function ContactForm() {
  
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
+
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.target.elements;
-    const formR = evt.currentTarget;
     if (
       contacts.some(
         contact =>
@@ -20,12 +20,13 @@ function ContactForm() {
       )
     ) {
       alert(`${form.name.value} is already in contacts`);
+      evt.currentTarget.reset();
     } else {
-      dispatch(addContact(form.name.value, form.number.value));
-      formR.reset();
+      dispatch(addContact({name: form.name.value,number: form.number.value }));
+      evt.currentTarget.reset();
     }
     
-  };
+   };
 
   return (
     <form onSubmit={handleSubmit} className={css.form_contact}>

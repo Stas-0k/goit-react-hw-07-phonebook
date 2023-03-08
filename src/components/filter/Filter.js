@@ -9,13 +9,9 @@ const Filter = () => {
 
   const dispatch = useDispatch();
   const filter = useSelector(getFilter);
-  
 
   const handleChange = evt => { 
-    
-    let search = evt.target.value
-    dispatch(changeFilter(search))
-    
+    dispatch(changeFilter(evt.target.value))    
   }
 
 
@@ -25,7 +21,7 @@ const Filter = () => {
       <input
         type="text"
         name="filter"
-        value={filter.query}
+        value={filter}
         className={css.input_filter}
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         onChange={handleChange}

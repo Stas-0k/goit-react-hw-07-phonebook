@@ -1,33 +1,25 @@
 import css from './contact-list.module.css';
-import { useSelector } from "react-redux";
-import { getContacts } from '../../redux/selectors'
-import { useDispatch } from "react-redux";
-import { deleteContact } from '../../redux/contactsSlice'
-import {getFilter} from '../../redux/selectors'
+import { useSelector } from 'react-redux';
+import { filtredContacts } from '../../redux/selectors';
+import { useDispatch } from 'react-redux';
+import { fetchContacts, deleteContact } from '../../redux/operations';
+import { useEffect } from 'react';
 
 const ContactList = () => {
-
-  const contacts = useSelector(getContacts)
-  const search = useSelector(getFilter)
-  
-
+  const contacts = useSelector(filtredContacts);
   const dispatch = useDispatch();
 
-  console.log(search)
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
-  const filtredContacts =
-    contacts.filter(contact =>
-      contact.name.toLowerCase().includes(search.query.toLowerCase()))
-
- 
-  
-
-  if (contacts.length > 0) {
-    return (
-      <ul className={css.list_contact}>
-        {filtredContacts.map(contact => (
-          <li className={css.listItem_contact} key={contact.id}>
-            {contact.name}: {contact.number}
+  return (
+    <ul className={css.list_contact}>
+      {contacts.length !== 0 ? (
+        contacts.map(contact => (
+          <li className={css.listItem_contact} key={contact.id}>            
+              <p><span className={css.name}>{contact.name}: </span>{contact.phone} </p>             
+            
             <button
               className={css.bttn_contactList}
               type="button"
@@ -36,14 +28,12 @@ const ContactList = () => {
               Delete
             </button>
           </li>
-        ))}
-      </ul>
-    );
-  } else {
-    return <p>No data to display :(</p>;
-  }
+        ))
+      ) : (
+        <p>No data to display :(</p>
+      )}
+    </ul>
+  );
 };
-
-
 
 export default ContactList;
