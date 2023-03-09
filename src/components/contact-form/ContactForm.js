@@ -22,7 +22,7 @@ function ContactForm() {
       alert(`${form.name.value} is already in contacts`);
       evt.currentTarget.reset();
     } else {
-      dispatch(addContact({name: form.name.value,number: form.number.value }));
+      dispatch(addContact({name: form.name.value,phone: form.number.value }));
       evt.currentTarget.reset();
     }
     
